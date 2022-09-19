@@ -1,0 +1,73 @@
+{
+    "name": "leorm037/fotos360",
+    "description": "Visualizador de fotos panorâmicas 360º 2:1.",
+    "type": "project",
+    "license": "MIT",
+    "version": "1.0.0-dev",
+    "keywords": ["photo", "foto", "panorâmica", "php"],
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Leonardo Rodrigues Marques",
+            "email": "leorm037@gmail.com",
+            "homepage": "https://www.paginaemconstrucao.com.br",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=8.0",
+        "symfony/flex": "^2.2",
+        "symfony/framework-bundle": "^6.1",
+        "symfony/dotenv": "^6.1",
+        "symfony/asset": "^6.1",
+        "symfony/console": "^6.1",
+        "sensio/framework-extra-bundle": "^6.2",
+        "doctrine/doctrine-bundle": "^2.7",
+        "doctrine/doctrine-migrations-bundle": "^3.2",
+        "doctrine/orm": "^2.13",
+        "symfony/twig-bundle": "^6.1",
+        "symfony/yaml": "^6.1",
+        "twig/extra-bundle": "^3.4",
+        "symfony/translation": "^6.1",
+        "twig/intl-extra": "^3.4",
+        "symfony/monolog-bundle": "^3.8",
+        "symfony/security-bundle": "^6.1",
+        "symfony/runtime": "^6.1",
+        "symfony/apache-pack": "^1.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/flex": true,
+            "symfony/runtime": true
+        }
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "code-analyse": "phpstan analyse -c phpstan.neon -l max --ansi src",
+        "code-fix": "php-cs-fixer fix --using-cache=no --ansi src",
+        "ci": [
+            "@code-fix",
+            "@code-analyse"
+        ]
+    },
+    "scripts-descriptions": {
+        "code-analyse": "Analise estática de código com phpstan",
+        "code-fix": "Correção de formatação de código"
+    },
+    "require-dev": {
+        "symfony/maker-bundle": "^1.45",
+        "phpstan/phpstan": "^1.8",
+        "friendsofphp/php-cs-fixer": "^3.11",
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "symfony/stopwatch": "^6.1",
+        "symfony/web-profiler-bundle": "^6.1"
+    }
+}
