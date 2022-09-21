@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-MAINTAINER Leonardo Marques <leonardo@paginaemconstrucao.com.br>
+MAINTAINER Leonardo Rodrigues Marques <leonardo@paginaemconstrucao.com.br>
 
 ENV LANG=pt_BR.UTF-8
 ENV LANGUAGE=pt_BR:pt
@@ -14,14 +14,16 @@ RUN apt update && apt install -y locales && rm -rf /var/lib/apt/lists/* \
 
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install apache2 apache2-utils \
     php php-xml php-cli php-xdebug php-intl php-mysql php-sqlite3 curl php-curl \
-    git composer -y
+    php-imagick git composer -y
 
 RUN apt clean
 
+RUN a2enmod rewrite
+
 RUN rm -rf /var/www/html/index.html
 
-WORKDIR /var/www/html
+WORKDIR /var/www
 
 EXPOSE 80 443
 
-CMD ["/usr/sbin/apache2ctl", "start"]
+CMD ["true"]

@@ -1,0 +1,111 @@
+{# templates/fotos360/default/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <a id="anchorPhotosphere"></a>
+            <div id="photosphere" style="height: 500px;"></div>
+        </div>
+    </div>
+    <div class="row my-2" id="btnVoltar" style="display: none;">
+        <div class="col d-grid gap-0">
+            <button type="button" class="btn btn-primary">Voltar</button>
+        </div>
+    </div>
+    <div class="row row-cols-1 row-cols-lg-3">
+        {% for photo in photos %}        
+            <div class="col my-2">
+                <div class="card">
+                    <a id="{{ photo.fileName | replace({'.jpg':""}) }}"></a>
+                    <img src="{{ app.request.uri }}fotos/thumb/{{ photo.fileName }}" class="card-img-top" alt="{{ photo.fileName }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ photo.ifd0Make }} - {{ photo.ifd0Model }}</h5>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="#" onclick="setPanorama('{{ photo.fileName }}')" class="btn btn-primary"><i class="bi bi-camera"></i> Foto</a>
+                                <a href="#" onclick="map('{{ photo.gpsLatitude }},{{ photo.gpsLongitude }}')" class="btn btn-secondary"><i class="bi bi-geo-alt"></i> Mapa</a>
+                                {#
+                                <a href="#" class="btn btn-danger"><i class="bi bi-trash"></i> Excluir</a>
+                                #}
+                            </div>
+                            <small>{{ photo.fileDateTime|date('d/m/Y H:i:s') }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>        
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        const baseUrl = '{{ app.request.uri }}fotos/';
+
+        const animatedValues = {
+            latitude: {start: -Math.PI / 2, end: 0.2},
+            longitude: {start: Math.PI, end: 0},
+            zoom: {start: 0, end: 50},
+            fisheye: {start: 2, end: 0}
+        };
+
+        const panorama = [{{ panoramas | raw }}];
+
+        const psv = new PhotoSphereViewer.Viewer({
+            container: 'photosphere',
+            panorama: baseUrl + panorama[0],
+            //loading_img: baseUrl + 'img/psvLoading.gif',
+            defaultLat: animatedValues.latitude.start,
+            defaultLong: animatedValues.longitude.start,
+            defaultZoomLvl: animatedValues.zoom.start,
+            fisheye: animatedValues.fisheye.start,
+            navbar: [
+                'autorotate',
+                'zoom',
+                'download',
+                'fullscreen'
+            ],
+            mousewheel: true,
+            mousemove: true
+        });
+
+        psv.on('ready', intro);
+
+        function intro() {
+            psv.stopAutorotate();
+
+            new PhotoSphereViewer.utils.Animation({
+                properties: animatedValues,
+                duration: 2500,
+                easing: 'inOutQuad',
+                onTick: (properties) => {
+                    psv.setOption('fisheye', properties.fisheye);
+                    psv.rotate({longitude: properties.longitude, latitude: properties.latitude});
+                    psv.zoom(properties.zoom);
+                }
+            })
+                    .then(() => {
+                        psv.setOptions({
+                            autorotateLat: animatedValues.latitude.end,
+                            autorotateDelay: 1000,
+                            autorotateIdle: true
+                        });
+                        psv.startAutorotate();
+                    });
+        }
+
+        function setPanorama(pano) {
+            psv.setPanorama(baseUrl + pano);
+            location.href = '#anchorPSV';
+            intro();
+
+            $("#btnVoltar").click(function () {
+                location.href = '#' + pano.substring(0,pano.indexOf('.'));
+                console.log(location.href);
+            }).show("slow");
+        }
+
+        function map(coordinates) {
+            window.open('https://www.google.com/maps/@?api=1&map_action=map&center=' + coordinates + '&basemap=satellite&layer=none&zoom=21', '_blank');
+        }
+    </script>
+{% endblock %}

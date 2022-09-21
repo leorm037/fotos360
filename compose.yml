@@ -1,0 +1,13 @@
+services:
+  web:
+    container_name: fotos360-apache
+    image: leorm037/ubuntu-last-php:2.0.0
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+        - ./:/var/www/fotos360
+        - ./etc/apache2/mods-available/alias.conf:/etc/apache2/mods-available/alias.conf
+        - ./etc/apache2/apache2.conf:/etc/apache2/apache2.conf
+    tty: true
+    command: apache2ctl -D FOREGROUND
