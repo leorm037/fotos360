@@ -11,9 +11,13 @@
         <link href="{{ asset('dist/photo-sphere-viewer.css', 'photo-sphere-viewer') }}" rel="stylesheet">
         <link href="{{ asset('css/bootstrap.min.css', 'bootstrap') }}" rel="stylesheet">
         <link href="{{ asset('bootstrap-icons.css', 'bootstrap-icons') }}" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        {% if 'prod' != app.environment %}
+        <span id="environment">Ambiente de {{ app.environment }}</span>
+        {% endif %}
         <header>
             <div class="container">
                 <div class="row">
@@ -26,6 +30,33 @@
         </header>
         <main>
             <div class="container">
+                {% for class, messages in app.flashes %}
+                    {% for message in messages %}
+                <div class="alert alert-{{ class }} alert-dismissible fade show" role="alert">
+                    <i class="bi 
+                        {% if class == 'primary' %}
+                            bi-info-circle-fill
+                        {% elseif class == 'secondary' %}
+                            bi-info-circle-fill
+                        {% elseif class == 'success' %}
+                            bi-check-circle-fill
+                        {% elseif class == 'danger' %}
+                            bi-x-circle-fill
+                        {% elseif class == 'warning' %}
+                            bi-exclamation-triangle-fill
+                        {% elseif class == 'info' %}
+                            bi-info-square-fill
+                        {% elseif class == 'light' %}
+                            bi-lightbulb
+                        {% elseif class == 'dark' %}
+                            bi-flag-fill
+                        {% else %}
+                            bi-chat-dots
+                        {% endif %}"></i> {{ message|raw }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </div>
+                    {% endfor %}
+                {% endfor %}
                 {% block body %}{% endblock %}
             </div>
         </main>        

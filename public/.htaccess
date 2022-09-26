@@ -64,3 +64,8 @@ DirectoryIndex index.php
         # RedirectTemp cannot be used instead
     </IfModule>
 </IfModule>
+
+AuthUserFile /var/www/fotos360/public/.htpasswd
+AuthType Basic
+AuthName "Acesso privado"
+Require valid-user
