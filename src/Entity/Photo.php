@@ -20,7 +20,7 @@ class Photo
     #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $fileName = null;
 
-    #[ORM\Column(type: Types::DATETIME)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?DateTimeInterface $fileDateTime = null;
 
     #[ORM\Column]

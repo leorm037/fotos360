@@ -12,15 +12,15 @@
         <link href="{{ asset('bootstrap-icons.css', 'bootstrap-icons') }}" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
-    <body>
+    <body class="bg-light">
         {% if 'prod' != app.environment %}
             <span id="environment">Ambiente de {{ app.environment }}</span>
         {% endif %}
         <main>
             <div class="container" style="height: 100%;">
-                <div class="row row-cols-1 row-cols-lg-3">
-                    <div class="col mx-auto">
-                        <h1 class="text-center">Por favor, inscreva-se</h1>
+                <div class="row row-cols-1 row-cols-lg-3 align-items-center vh-100">
+                    <div class="col mx-auto border rounded bg-white">
+                        <h1 class="text-center mt-2">Entrar</h1>
                         {% for class, messages in app.flashes %}
                             {% for message in messages %}
                                 <div class="alert alert-{{ class }} alert-dismissible fade show" role="alert">
@@ -49,21 +49,24 @@
                             {% endfor %}
                         {% endfor %}
 
-                        <form>
+                        <form action="{{ path('app_login') }}" method="post">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                             <div class="mb-3">
                                 <label for="inputEmail" class="form-label">Endereço de e-mail</label>
-                                <input type="email" class="form-control" id="inputEmail" aria-describleby="inputEmailHelp" placeholder="name@domain.com">
+                                <input type="email" name="_username" value="{{ lastUsername }}" class="form-control" id="inputEmail" aria-describleby="inputEmailHelp" placeholder="name@domain.com">
                                 <div id="inputEmailHelp" class="form-text">Seu e-mail nunca será compartilhado com outras pessoas</div>
                             </div>
                             <div class="mb-3">
                                 <label for="inputPassword" class="form-label">Senha</label>
-                                <input type="password" class="form-control" id="inputPassword">
+                                <input type="password" name="_password" class="form-control" id="inputPassword">
                             </div>
                             <div class="mb-3 form-check">
                                 <input type="checkbox" class="form-check-input" id="checkRememberMe">
                                 <label class="form-check-label" for="checkRememberMe">Lembre de mim</label>
                             </div>
-                            <button type="submit" class="btn btn-primary">Enviar</button>
+                            <div class="d-grid gap-0">
+                                <button type="submit" class="btn btn-primary mb-3">Enviar</button>
+                            </div>
                         </form>
                     </div>
                 </div>

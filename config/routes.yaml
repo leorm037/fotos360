@@ -15,4 +15,4 @@ app_default_photos:
 app_login:
     path: /login
     controller: App\Controller\LoginController::index
-    methods: GET
+    methods: GET|POST    
