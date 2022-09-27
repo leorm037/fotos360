@@ -1,0 +1,75 @@
+{# templates/fotos360/default/index.html.twig #}
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="generator" content="">
+        <title>Fotos 360º</title>
+        <link href="{{ asset('css/bootstrap.min.css', 'bootstrap') }}" rel="stylesheet">
+        <link href="{{ asset('bootstrap-icons.css', 'bootstrap-icons') }}" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    </head>
+    <body>
+        {% if 'prod' != app.environment %}
+            <span id="environment">Ambiente de {{ app.environment }}</span>
+        {% endif %}
+        <main>
+            <div class="container" style="height: 100%;">
+                <div class="row row-cols-1 row-cols-lg-3">
+                    <div class="col mx-auto">
+                        <h1 class="text-center">Por favor, inscreva-se</h1>
+                        {% for class, messages in app.flashes %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ class }} alert-dismissible fade show" role="alert">
+                                    <i class="bi
+                                       {% if class == 'primary' %}
+                                           bi-info-circle-fill
+                                       {% elseif class == 'secondary' %}
+                                           bi-info-circle-fill
+                                       {% elseif class == 'success' %}
+                                           bi-check-circle-fill
+                                       {% elseif class == 'danger' %}
+                                           bi-x-circle-fill
+                                       {% elseif class == 'warning' %}
+                                           bi-exclamation-triangle-fill
+                                       {% elseif class == 'info' %}
+                                           bi-info-square-fill
+                                       {% elseif class == 'light' %}
+                                           bi-lightbulb
+                                       {% elseif class == 'dark' %}
+                                           bi-flag-fill
+                                       {% else %}
+                                           bi-chat-dots
+                                       {% endif %}"></i> {{ message|raw }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+
+                        <form>
+                            <div class="mb-3">
+                                <label for="inputEmail" class="form-label">Endereço de e-mail</label>
+                                <input type="email" class="form-control" id="inputEmail" aria-describleby="inputEmailHelp" placeholder="name@domain.com">
+                                <div id="inputEmailHelp" class="form-text">Seu e-mail nunca será compartilhado com outras pessoas</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="inputPassword" class="form-label">Senha</label>
+                                <input type="password" class="form-control" id="inputPassword">
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="checkRememberMe">
+                                <label class="form-check-label" for="checkRememberMe">Lembre de mim</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>        
+        <script src="{{ asset('js/jquery-3.6.1.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.bundle.js','bootstrap') }}"></script>
+    </body>
+</html>
