@@ -6,8 +6,8 @@ services:
     ports:
       - 80:80
     volumes:
-        - ./:/var/www/fotos360
-        - ./etc/apache2/mods-available/alias.conf:/etc/apache2/mods-available/alias.conf
-        - ./etc/apache2/apache2.conf:/etc/apache2/apache2.conf
+        - ./:/var/www/workdir:delegated
+        - ./etc/apache2/mods-available/alias.conf:/etc/apache2/mods-available/alias.conf:delegated
+        - ./etc/apache2/apache2.conf:/etc/apache2/apache2.conf:delegated
     tty: true
     command: apache2ctl -D FOREGROUND

@@ -6,6 +6,7 @@ use App\Entity\Photo;
 use DateInterval;
 use Imagick;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
@@ -67,12 +68,6 @@ class DefaultController extends AbstractController {
         }
 
         return $photos;
-    }
-
-    public function photos(): Response {
-        $this->addFlash('notice', 'Teste 123');
-
-        return $this->render('default/index.html.twig');
     }
 
     private function generateThumbnail(Photo $photo) {

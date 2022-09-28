@@ -2,20 +2,13 @@ app_default_index:
     path: /
     controller: App\Controller\DefaultController::index
     methods: GET
-
-app_default_photos:
-    path:
-        pt_BR: /{_locale}/fotos
-        en: /{_locale}/photos
-    controller: App\Controller\DefaultController::photos
-    methods: GET
-    requirements:
-        _locale: pt_BR|en
         
 app_login:
-    path: /login
+    path:
+        en: /{_locale}/login
+        pt_BR: /{_locale}/conectar
     controller: App\Controller\LoginController::index
-    methods: GET|POST 
+    methods: GET|POST
     
 app_logout:
     path: /logout
