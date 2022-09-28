@@ -18,7 +18,7 @@
         {% endif %}
         <main>
             <div class="container" style="height: 100%;">
-                <div class="row row-cols-1 row-cols-lg-3 align-items-center vh-100">
+                <div class="row row-cols-1 row-cols-lg-3 align-items-center vh-100 m-2">
                     <div class="col mx-auto border rounded bg-white">
                         <h1 class="text-center mt-2">Entrar</h1>
                         {% for class, messages in app.flashes %}
@@ -65,7 +65,7 @@
                                 <label class="form-check-label" for="checkRememberMe">Lembre de mim</label>
                             </div>
                             <div class="d-grid gap-0">
-                                <button type="submit" class="btn btn-primary mb-3">Enviar</button>
+                                <button type="submit" class="btn btn-primary mb-3" id="btnSubmit">Enviar</button>
                             </div>
                         </form>
                     </div>
@@ -74,5 +74,16 @@
         </main>        
         <script src="{{ asset('js/jquery-3.6.1.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.bundle.js','bootstrap') }}"></script>
+        <script src="{{ asset('js/jquery.loading.min.js','jquery-loading') }}"></script>
+        <script>
+            $('#btnSubmit').click(function () {
+                $('body').loading({
+                    message: '{{ 'Carregando' }}',
+                    onStart: function (loading) {
+                        loading.overlay.slideDown();
+                    }
+                });
+            });
+        </script>
     </body>
 </html>

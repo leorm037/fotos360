@@ -8,6 +8,8 @@ framework:
                 base_path: '/Photo-Sphere-Viewer-4.7.3'
             bootstrap-icons:
                 base_path: '/bootstrap-icons-1.9.1'
+            jquery-loading:
+                base_path: '/jquery.loading'
     secret: '%env(APP_SECRET)%'
     #csrf_protection: true
     http_method_override: false
