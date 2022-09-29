@@ -19,3 +19,6 @@
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+/public/fotos/*.jpg
+/public/fotos/thumb/*.jpg
