@@ -21,15 +21,19 @@
                     <img src="{{ app.request.uri }}fotos/thumb/{{ photo.fileName }}" class="card-img-top" alt="{{ photo.fileName }}">
                     <div class="card-body">
                         <h5 class="card-title"><i class="bi bi-camera2"></i> {{ photo.ifd0Make }} - {{ photo.ifd0Model }}</h5>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="#" onclick="setPanorama('{{ photo.fileName }}')" class="btn btn-primary"><i class="bi bi-eye"></i> Ver</a>
-                                <a href="#" onclick="map('{{ photo.gpsLatitude }},{{ photo.gpsLongitude }}')" class="btn btn-secondary"><i class="bi bi-geo-alt"></i> Mapa</a>
-                                {#
-                                <a href="#" class="btn btn-danger"><i class="bi bi-trash"></i> Excluir</a>
-                                #}
+                        <div class="row">
+                            <div class="col-12 col-md-6 mb-2">
+                                <div class="btn-group">
+                                    <a href="#" onclick="setPanorama('{{ photo.fileName }}')" class="btn btn-primary"><i class="bi bi-eye"></i> Ver</a>
+                                    <a href="#" onclick="map('{{ photo.gpsLatitude }},{{ photo.gpsLongitude }}')" class="btn btn-secondary"><i class="bi bi-geo-alt"></i> Mapa</a>
+                                    {#
+                                    <a href="#" class="btn btn-danger"><i class="bi bi-trash"></i> Excluir</a>
+                                    #}
+                                </div>
                             </div>
-                            <small><i class="bi bi-calendar-event"></i> {{ photo.fileDateTime|date('d/m/Y H:i:s') }}</small>
+                            <div class="col-12 col-md-6 mb-2 d-flex justify-content-end align-items-center">
+                                <small><i class="bi bi-calendar-event"></i> {{ photo.fileDateTime|date('d/m/Y H:i:s') }}</small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -99,7 +103,7 @@
             intro();
 
             $("#btnVoltar").click(function () {
-                location.href = '#' + pano.substring(0,pano.indexOf('.'));
+                location.href = '#' + pano.substring(0, pano.indexOf('.'));
                 console.log(location.href);
             }).show("slow");
         }
