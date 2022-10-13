@@ -16,7 +16,7 @@
     </head>
     <body>
         {% if 'prod' != app.environment %}
-        <span id="environment">Ambiente de {{ app.environment }}</span>
+        <span id="environment">Ambiente de {{ app.environment|trans }}</span>
         {% endif %}
         <header>
             <div class="container">

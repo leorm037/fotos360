@@ -1,4 +1,19 @@
 services:
+  database:
+        container_name: fotos360-mariadb
+        image: mariadb:latest
+        restart: always
+        ports:
+            - 3306:3306
+        environment:
+            - MARIADB_ROOT_PASSWORD=fotos360
+            - MARIADB_USER=fotos360
+            - MARIADB_PASSWORD=fotos360
+            - MARIADB_DATABASE=fotos360
+        volumes:
+            - type: volume
+              source: mariadb
+              target: /var/lib/mysql
   web:
     container_name: fotos360-apache
     image: leorm037/ubuntu-last-php:2.0.0
@@ -10,4 +25,10 @@ services:
         - ./etc/apache2/mods-available/alias.conf:/etc/apache2/mods-available/alias.conf:delegated
         - ./etc/apache2/apache2.conf:/etc/apache2/apache2.conf:delegated
     tty: true
+    links:
+        - database
+    depends_on:
+        - database
     command: apache2ctl -D FOREGROUND
+volumes:
+    mariadb:
