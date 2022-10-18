@@ -18,8 +18,9 @@ class Album
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'album', targetEntity: User::class)]
-    private Collection $user;
+    #[ORM\ManyToOne(inversedBy: 'albums')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $User = null;
 
     public function __construct()
     {
@@ -43,32 +44,14 @@ class Album
         return $this;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUser(): Collection
+    public function getUser(): ?User
     {
-        return $this->user;
+        return $this->User;
     }
 
-    public function addUser(User $user): self
+    public function setUser(?User $User): self
     {
-        if (!$this->user->contains($user)) {
-            $this->user->add($user);
-            $user->setAlbum($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        if ($this->user->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getAlbum() === $this) {
-                $user->setAlbum(null);
-            }
-        }
+        $this->User = $User;
 
         return $this;
     }
